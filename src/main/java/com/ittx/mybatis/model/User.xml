@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ittx.mybatis.dao.UserDao">
+	<resultMap type="UserAlias" id="userResult">
+		<id property="id" column="id" jdbcType="INTEGER"/>
+		<result property="name" column="name" jdbcType="VARCHAR"/>
+		<result property="age" column="age" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<select id="selectUserByID" parameterType="int" resultMap="userResult">
+		select * from user_m where id = #{id}
+	</select>
+	
+	<insert id="insertUser" parameterType="UserAlias" useGeneratedKeys="true" keyProperty="id">
+		insert into user_m (name,age)values(#{name},#{age})
+	</insert>
+	
+	<delete id="deleteUserById" parameterType="int">
+		delete from user_m where id=#{id}
+	</delete>
+	
+	<update id="updateUser" parameterType="UserAlias">
+		update user_m set name=#{name} , age=#{age} where id=#{id}
+	</update>
+</mapper>
